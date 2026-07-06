@@ -1,0 +1,23 @@
+ingestion:
+  chunk_size: 512
+  chunk_overlap: 64
+  supported_formats: [pdf, docx, html, md, txt]
+embeddings:
+  model: text-embedding-3-small
+vector_store:
+  provider: chroma
+  collection_name: rag_enterprise
+  persist_directory: .chroma/
+retrieval:
+  top_k: 10
+  search_type: hybrid
+  rrf_k: 60
+reranker:
+  enabled: true
+  top_n: 4
+llm:
+  model: gpt-4o-mini
+  temperature: 0.1
+api:
+  host: 0.0.0.0
+  port: 8000
