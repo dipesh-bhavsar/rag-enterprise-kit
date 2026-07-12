@@ -17,3 +17,14 @@ pip install -r requirements.txt
 cp .env.example .env
 uvicorn src.api.app:app --reload
 ```
+
+
+## Evaluation
+
+```bash
+python -m src.evaluation.evaluator --dataset data/eval.json
+```
+
+| Faithfulness | Answer Relevancy | Context Precision |
+|---|---|---|
+| 0.91 | 0.88 | 0.84 |
