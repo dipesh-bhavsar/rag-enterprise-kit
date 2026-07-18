@@ -17,15 +17,15 @@ class ChromaStore:
         collection_name,
         persist_directory,
         embedding_model="text-embedding-3-small",
-        openai_api_key=""
+        openai_api_key="",
     ):
         if not openai_api_key:
             import os
+
             openai_api_key = os.getenv("OPENAI_API_KEY")
 
         self.embeddings = OpenAIEmbeddings(
-            model=embedding_model,
-            openai_api_key=openai_api_key
+            model=embedding_model, openai_api_key=openai_api_key
         )
 
         self.persist_directory = Path(persist_directory)
@@ -76,16 +76,12 @@ class ChromaStore:
 
         import numpy as np
 
-        query_vector = np.array(
-            [self.embeddings.embed_query(query)],
-            dtype="float32"
-        )
+        query_vector = np.array([self.embeddings.embed_query(query)], dtype="float32")
 
         faiss.normalize_L2(query_vector)
 
         scores, indices = self.index.search(
-            query_vector,
-            min(top_k, len(self.documents))
+            query_vector, min(top_k, len(self.documents))
         )
 
         results = []
@@ -98,10 +94,7 @@ class ChromaStore:
             results.append(
                 Document(
                     page_content=doc.page_content,
-                    metadata={
-                        **doc.metadata,
-                        "score": float(score)
-                    }
+                    metadata={**doc.metadata, "score": float(score)},
                 )
             )
 

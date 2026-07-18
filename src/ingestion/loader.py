@@ -31,9 +31,7 @@ class DocumentLoader:
             raise ValueError(f"Unsupported: {suffix}")
         docs = LOADER_MAP[suffix](str(path)).load()
         for doc in docs:
-            doc.metadata.update(
-                {"source": str(path), "file_name": path.name}
-            )
+            doc.metadata.update({"source": str(path), "file_name": path.name})
         return docs
 
     def load_directory(self, directory):
